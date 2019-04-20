@@ -8,18 +8,26 @@ var app = new Framework7({
     // App root element
     root: '#app',
     // App Name
-    name: 'My App',
+    name: 'Antrian App',
     // App id
-    id: 'com.myapp.test',
+    id: 'com.myapp.antrianApp',
     // Enable swipe panel
     panel: {
       swipe: 'left',
     },
-    // Add default routes
+    // Add default routesabout
     routes: [
       {
         path: '/about/',
         url: 'about.html',
+      },
+      {
+        path: '/home/',
+        url: 'home.html',
+      },
+      {
+        path: '/pendaftaran/',
+        url: 'pendaftaran.html',
       },
     ]
     // ... other parameters
@@ -36,10 +44,5 @@ $$(document).on('deviceready', function() {
 $$(document).on('page:init', function (e) {
     // Do something here when page loaded and initialized
     console.log(e);
-})
-
-// Option 2. Using live 'page:init' event handlers for each page
-$$(document).on('page:init', '.page[data-name="about"]', function (e) {
-    // Do something here when page with data-name="about" attribute loaded and initialized
-    console.log(e);
+    const page = e.detail;
 })
