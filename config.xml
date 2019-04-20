@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="org.myapp.sample" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>helloworld</name>
+<widget id="org.myapp.antrianApp" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Antrian</name>
     <description>
-        A basic Framework7 template for PhoneGap.
+        Aplikasi Antrian RSU UNTAD
     </description>
     <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+        Ami
     </author>
     <content src="index.html" />
     <access origin="*" />
