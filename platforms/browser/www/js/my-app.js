@@ -15,6 +15,26 @@ var app = new Framework7({
     panel: {
       swipe: 'left',
     },
+    //onbackpress
+    methods: {
+      onBackKeyDown: function() {
+        var leftp = app.panel.left && app.panel.left.opened;
+        var rightp = app.panel.right && app.panel.right.opened;
+
+        if ( leftp || rightp ) {
+          app.panel.close();
+          return false;
+        }else if ($$('.modal-in').length > 0) {
+          app.dialog.close();
+          app.popup.close();
+          return false;
+        } else if (app.views.main.router.url == '/home/') {
+          navigator.app.exitApp();
+        } else {
+          mainView.router.back();
+        }
+      }
+    },
     // Add default routesabout
     routes: [
       {
@@ -28,8 +48,8 @@ var app = new Framework7({
       {
         path: '/pendaftaran/',
         url: 'pendaftaran.html',
-      },
-    ]
+      }
+    ],
     // ... other parameters
   });
 
