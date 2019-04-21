@@ -38,17 +38,33 @@ var mainView = app.views.create('.view-main');
 
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
-    console.log("Device is ready!");
-    document.addEventListener("backbutton", onBackKeyDown, false);
+  console.log("Device is ready!");
+  document.addEventListener("backbutton", onBackKeyDown, false);
 });
 
 function onBackKeyDown(){
-  mainView.router.back();
+  var leftp = app.panel.left && app.panel.left.opened;
+  var rightp = app.panel.right && app.panel.right.opened;
+  if ( leftp || rightp ) {
+    app.panel.close();
+    return false;
+  }else if ($$('.modal-in').length > 0) {
+    app.dialog.close();
+    return false;
+  }else if (app.views.main.router.url == '/home/') {
+    app.dialog.confirm('Are you sure you want to exit?', 'Exit Antrian', function() {
+        navigator.app.exitApp();
+    },
+    function() {
+    });
+  }else {
+    mainView.router.back();
+  }
 }
 
 // Option 1. Using one 'page:init' handler for all pages
 $$(document).on('page:init', function (e) {
-    // Do something here when page loaded and initialized
-    console.log(e);
-    const page = e.detail;
+  // Do something here when page loaded and initialized
+  console.log(e);
+  const page = e.detail;
 })
