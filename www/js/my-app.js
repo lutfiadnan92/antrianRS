@@ -36,15 +36,15 @@ var app = new Framework7({
 
 var mainView = app.views.create('.view-main');
 
-function onBackKeyDown(){
-  mainView.router.back();
-}
-
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
-    document.addEventListener("","");
+    document.addEventListener("backbutton", onBackKeyDown, false);
 });
+
+function onBackKeyDown(){
+  mainView.router.back();
+}
 
 // Option 1. Using one 'page:init' handler for all pages
 $$(document).on('page:init', function (e) {
