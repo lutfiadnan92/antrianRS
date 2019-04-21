@@ -14,9 +14,12 @@ var app = new Framework7({
     // Enable swipe panel
     panel: {
       swipe: 'left',
-    },
+    },7
     //onbackpress
     methods: {
+      onDeviceReady: function() {
+        document.addEventListener("backbutton", myApp.methods.onBackKeyDown, false);
+      },
       onBackKeyDown: function() {
         var leftp = app.panel.left && app.panel.left.opened;
         var rightp = app.panel.right && app.panel.right.opened;
@@ -58,6 +61,7 @@ var mainView = app.views.create('.view-main');
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
+    document.addEventListener("","");
 });
 
 // Option 1. Using one 'page:init' handler for all pages
