@@ -14,7 +14,7 @@ var app = new Framework7({
     // Enable swipe panel
     panel: {
       swipe: 'left',
-    },7
+    },
     //onbackpress
     methods: {
       onDeviceReady: function() {
