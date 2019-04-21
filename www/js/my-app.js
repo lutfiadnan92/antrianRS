@@ -18,7 +18,7 @@ var app = new Framework7({
     //onbackpress
     methods: {
       onDeviceReady: function() {
-        document.addEventListener("backbutton", myApp.methods.onBackKeyDown, false);
+        document.addEventListener("backbutton", app.methods.onBackKeyDown, false);
       },
       onBackKeyDown: function() {
         var leftp = app.panel.left && app.panel.left.opened;
