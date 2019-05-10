@@ -15,26 +15,6 @@ var app = new Framework7({
     panel: {
       swipe: 'left',
     },
-    //onbackpress
-    methods: {
-      onBackKeyDown: function() {
-        var leftp = app.panel.left && app.panel.left.opened;
-        var rightp = app.panel.right && app.panel.right.opened;
-
-        if ( leftp || rightp ) {
-          app.panel.close();
-          return false;
-        }else if ($$('.modal-in').length > 0) {
-          app.dialog.close();
-          app.popup.close();
-          return false;
-        } else if (app.views.main.router.url == '/home/') {
-          navigator.app.exitApp();
-        } else {
-          mainView.router.back();
-        }
-      }
-    },
     // Add default routesabout
     routes: [
       {
@@ -48,6 +28,10 @@ var app = new Framework7({
       {
         path: '/pendaftaran/',
         url: 'pendaftaran.html',
+      },
+      {
+        path: '/login/',
+        url: 'database/login.php',
       }
     ],
     // ... other parameters
@@ -58,6 +42,37 @@ var mainView = app.views.create('.view-main');
 // Handle Cordova Device Ready Event
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
+});
+
+$$('#login').on('click', function () {
+  let username = $$('#username').val();
+  let password = $$('#password').val();
+  
+  if (!username || !password){
+   app.dialog.alert("Please submit username dan password!!!","Warning");
+   return;
+  }else{
+    app.request({
+        method: 'GET',
+        url: 'database/login.php',
+        data:{
+          user:username,
+          pass:password
+        },
+        success: function(data) {
+          console.log(data.nama);
+          if(username && password){
+            mainView.router.navigate('/home/');
+          }else{
+            app.dialog.alert("Wrong Username and Password","Information");
+          }
+        },
+        error: function(xhr) {
+          app.dialog.alert("Page not found","Information");
+          return;
+        }
+    });
+  }
 });
 
 // Option 1. Using one 'page:init' handler for all pages

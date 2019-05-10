@@ -53,14 +53,44 @@ function onBackKeyDown(){
     return false;
   }else if (app.views.main.router.url == '/home/') {
     app.dialog.confirm('Are you sure you want to exit?', 'Exit Antrian', function() {
-        navigator.app.exitApp();
+      navigator.app.exitApp();
     },
-    function() {
-    });
+    function(){});
   }else {
     mainView.router.back();
   }
 }
+
+$$('#login').on('click', function () {
+  let username = $$('#username').val();
+  let password = $$('#password').val();
+  
+  if (!username || !password){
+   app.dialog.alert("Please submit username dan password!!!","Warning");
+   return;
+  }else{
+    app.request({
+        method: 'GET',
+        url: 'database/login.php',
+        data:{
+          user:username,
+          pass:password
+        },
+        success: function(data) {
+          console.log(data.nama);
+          if(username && password){
+            mainView.router.navigate('/home/');
+          }else{
+            app.dialog.alert("Wrong Username and Password","Information");
+          }
+        },
+        error: function(xhr) {
+          app.dialog.alert("Page not found","Information");
+          return;
+        }
+    });
+  }
+});
 
 // Option 1. Using one 'page:init' handler for all pages
 $$(document).on('page:init', function (e) {
