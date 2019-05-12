@@ -73,9 +73,13 @@ $$(document).on('page:init', function (e) {
 
   //page home
   if(page.name === "home"){
-    $$('#login').on('click', function () {
+    $$('#form-login').on('submit', function (e) {
+      e.preventDefault();
+
       const username = $$('#username').val();
       const password = $$('#password').val();
+      const form_url = $$(this).attr('action');
+      $$('#login').attr("Value","Please Wait...")
 
       if (!username || !password){
         app.dialog.alert("Please submit username dan password!!!","Warning");
@@ -83,21 +87,22 @@ $$(document).on('page:init', function (e) {
       }else{
         app.request({
           method: "POST",
-          dataType: "html",
-          url: "http://armed.atwebpages.com/login.php",
+          dataType: "json",
+          url: form_url,
           data:{
             user:username,
             pass:password
           },
           success: function(pesan) {
             console.log(pesan);
-            if(pesan == "ok"){
+            if(pesan.nama === username){
               mainView.router.navigate('/home/');
             }else{
               app.dialog.alert("Wrong Username and Password","Information");
             }
           },
           error: function(xhr) {
+            console.log(xhr);
             app.dialog.alert("Page not found","Information");
             return;
           }
