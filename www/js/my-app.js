@@ -81,28 +81,27 @@ $$(document).on('page:init', function (e) {
         app.dialog.alert("Please submit username dan password!!!","Warning");
         return;
       }else{
-        mainView.router.navigate('/home/');
-        // app.request({
-        //   method: "POST",
-        //   dataType: "html",
-        //   url: "http://armed.atwebpages.com/login.php",
-        //   data:{
-        //     user:username,
-        //     pass:password
-        //   },
-        //   success: function(pesan) {
-        //     console.log(pesan);
-        //     if(pesan == "ok"){
-        //       mainView.router.navigate('/home/');
-        //     }else{
-        //       app.dialog.alert("Wrong Username and Password","Information");
-        //     }
-        //   },
-        //   error: function(xhr) {
-        //     app.dialog.alert("Page not found","Information");
-        //     return;
-        //   }
-        // });
+        app.request({
+          method: "POST",
+          dataType: "html",
+          url: "http://armed.atwebpages.com/login.php",
+          data:{
+            user:username,
+            pass:password
+          },
+          success: function(pesan) {
+            console.log(pesan);
+            if(pesan == "ok"){
+              mainView.router.navigate('/home/');
+            }else{
+              app.dialog.alert("Wrong Username and Password","Information");
+            }
+          },
+          error: function(xhr) {
+            app.dialog.alert("Page not found","Information");
+            return;
+          }
+        });
       }
     });
   }
@@ -111,21 +110,20 @@ $$(document).on('page:init', function (e) {
   if(page.name === "home-view"){
     //logout function
     $$('#logout').on('click', function () {
-      mainView.router.navigate('/',{reloadAll : true});
-      // app.request({
-      //   method: "POST",
-      //   dataType: "html",
-      //   url: "http://armed.atwebpages.com/logout.php",
-      //   success: function(logout) {
-      //     if(logout == "true"){
-      //       mainView.router.navigate('/',{reloadAll : true});
-      //     }
-      //   },
-      //   error: function(xhr) {
-      //     app.dialog.alert("Page not found","Information");
-      //     return;
-      //   }
-      // });
+      app.request({
+        method: "POST",
+        dataType: "html",
+        url: "http://armed.atwebpages.com/logout.php",
+        success: function(logout) {
+          if(logout == "true"){
+            mainView.router.navigate('/',{reloadAll : true});
+          }
+        },
+        error: function(xhr) {
+          app.dialog.alert("Page not found","Information");
+          return;
+        }
+      });
     });
   }
 
@@ -134,7 +132,7 @@ $$(document).on('page:init', function (e) {
     //ketika tombol pesan di click
     $$('#pesan').on('click', function () {
       const antrian = $$('#nomor-antrian');
-      let terpanggil = 0;
+      let terpanggil = [];
 
       if(terpanggil === 1000){
         terpanggil = 1000;
