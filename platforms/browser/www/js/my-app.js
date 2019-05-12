@@ -62,6 +62,7 @@ $$(document).on('page:init', function (e) {
 
       if (!username || !password){
         app.dialog.alert("Please submit username dan password!!!","Warning");
+        $$('#login').attr("Value","Login")
         return;
       }else{
         app.request({
@@ -78,11 +79,13 @@ $$(document).on('page:init', function (e) {
               mainView.router.navigate('/home/');
             }else{
               app.dialog.alert("Wrong Username and Password","Information");
+              $$('#login').attr("Value","Login")
             }
           },
           error: function(xhr) {
             console.log(xhr);
             app.dialog.alert("Page not found","Information");
+            $$('#login').attr("Value","Login")
             return;
           }
         });
